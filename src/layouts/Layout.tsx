@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import Navbar from "components/navbar"
+import Navbar from "src/components/navbar"
 
 interface Props {
 }
