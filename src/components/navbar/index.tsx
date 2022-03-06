@@ -6,12 +6,8 @@ import classes from "styles/navbar.module.css";
 const brandName = "buyCart";
 
 const index = () => {
-  const [show, setShow] = useState(false);
-
-  const hanleLogin = () => {
-    setShow(true);
-  };
-
+  const [showLogin, setshowLogin] = useState<boolean>(false);
+  
   return (
     <Navbar bg="primary">
       <Container>
@@ -33,15 +29,12 @@ const index = () => {
           </div>
         </Navbar.Brand>
         <div>
-          <Button variant="warning" onClick={hanleLogin}>
+          <Button variant="warning" onClick={()=>setshowLogin(true)}>
             Login
-          </Button>
-          <Button variant="warning" onClick={hanleLogin}>
-            Sign Up
           </Button>
         </div>
       </Container>
-      <Login show={show} onHide={() => setShow(false)} />
+      <Login show={showLogin} onHide={() => setshowLogin(false)} />
     </Navbar>
   );
 };
