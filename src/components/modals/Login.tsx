@@ -2,6 +2,10 @@ import { FC, useState } from "react";
 import { useFormik } from "formik";
 import { Modal, Button, Form } from "react-bootstrap";
 import SignUp from "./SignUp";
+import { useRouter } from "next/router";
+import axios from "axios";
+import { apiUrl } from "src/config";
+import {setUser} from "src/utils/storage"
 
 import * as Yup from "yup";
 
@@ -11,6 +15,7 @@ type Props = {
 };
 
 const Login: FC<Props> = (props: Props) => {
+  const router = useRouter();
   const [showSignup, setShowSignup] = useState<boolean>(false);
   console.log(showSignup)
 
@@ -28,10 +33,15 @@ const Login: FC<Props> = (props: Props) => {
         .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
     }),
 
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+    onSubmit: async(values) => {
+      const { data } = await axios.get(`${apiUrl}`);
+      const checkLogin =  data.some((res:{userName:string, password:string, id:number})=>res.userName==values.email && res.password==values.password)
+      if(checkLogin===true){
+        setUser()
+        router.push("/welcome")
+      }
+    }
+  })
 
   return (
     <>

@@ -5,6 +5,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import Login from "src/components/modals/Login";
 import { apiUrl } from "src/config";
 import * as Yup from "yup";
+import {setUser} from "src/utils/storage"
 import { Oval } from "react-loader-spinner";
 
 type Props = {
@@ -37,13 +38,16 @@ const SignUp: FC<Props> = (props: Props) => {
     }),
 
     onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+
       const { data } = await axios.post(`${apiUrl}`, {
         userName: values.email,
         password: values.password,
       });
 
       if (data) {
+        setUser();
+        setshowLogin(true);
+        props.onHide();
       }
     },
   });
@@ -110,7 +114,6 @@ const SignUp: FC<Props> = (props: Props) => {
             <div className="d-flex justify-content-center">
               {formik.isSubmitting ? (
                 <Oval
-                  className="loader"
                   height="40"
                   width="40"
                   color="#0d6efd"
