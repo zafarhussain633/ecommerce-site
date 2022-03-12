@@ -7,6 +7,7 @@ const setUser = () => {
 
 const getUser = () => {
     const value = localStorage.getItem("loginStatus")
+    console.log(value,"dsds")
     if (value === "true") {
         return true
     } else {

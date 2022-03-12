@@ -1,8 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import { useEffect } from "react";
+import "../styles/globals.css";
+import { getUser } from "src/utils/storage";
+import { useRouter } from "next/router";
+import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  const router = useRouter();
+  useEffect(() => {
+    const checkLogin = getUser();
+    if (checkLogin === false) {
+      router.push("/");
+    }
+  }, []);
+
+  return <Component {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;

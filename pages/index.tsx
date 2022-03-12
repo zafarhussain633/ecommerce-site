@@ -4,8 +4,10 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Layout from "../src/layouts/Layout";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
+
   return (
     <Layout>
       <Head>
