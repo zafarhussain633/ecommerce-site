@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import { apiUrl } from "src/config";
 import {setUser} from "src/utils/storage"
+import { useLinkedIn } from 'react-linkedin-login-oauth2';
+
+const linkedIn_app_id = process.env.NEXT_PUBLIC_LINKED_IN_APP_ID
 
 import * as Yup from "yup";
 
@@ -43,6 +46,19 @@ const Login: FC<Props> = (props: Props) => {
     }
   })
 
+ 
+  const { linkedInLogin } = useLinkedIn({
+    clientId: "77qxzak4e8lnua",
+    redirectUri:"http://localhost:3000/auth/linkedin/callback", // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
+    onSuccess: (code) => {
+      console.log(code);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  
   return (
     <>
       <Modal {...props}>
@@ -89,6 +105,11 @@ const Login: FC<Props> = (props: Props) => {
             <Button variant="primary" type="submit">
               Login
             </Button>
+
+            <Button variant="primary"  onClick={linkedInLogin} >
+              Login WITH LINKED IN
+            </Button>
+
           </Form>
           <div   className="text-primary text-center">
             <a
@@ -106,3 +127,6 @@ const Login: FC<Props> = (props: Props) => {
 };
 
 export default Login;
+
+
+

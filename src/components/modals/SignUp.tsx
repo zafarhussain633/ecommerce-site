@@ -47,7 +47,7 @@ const SignUp: FC<Props> = (props: Props) => {
       if (data) {
         setUser();
         setshowLogin(true);
-        props.onHide();
+        // props.onHide();
       }
     },
   });
